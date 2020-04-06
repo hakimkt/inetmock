@@ -1,0 +1,324 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>dns_mock - INetMock docs</title>
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div id="sidebar-scrollbox" class="sidebar-scrollbox">
+                <ol class="chapter"><li class="expanded "><a href="../build_install.html"><strong aria-hidden="true">1.</strong> Building &amp; Installation</a></li><li class="expanded "><a href="../config.html"><strong aria-hidden="true">2.</strong> Configuration</a></li><li><ol class="section"><li class="expanded "><a href="../config/yaml-config.html"><strong aria-hidden="true">2.1.</strong> config.yaml</a></li><li class="expanded "><a href="../config/http_mock.html"><strong aria-hidden="true">2.2.</strong> http_mock</a></li><li class="expanded "><a href="../config/dns_mock.html" class="active"><strong aria-hidden="true">2.3.</strong> dns_mock</a></li><li class="expanded "><a href="../config/tls_interceptor.html"><strong aria-hidden="true">2.4.</strong> tls_interceptor</a></li></ol></li><li class="expanded "><a href="../deploy.html"><strong aria-hidden="true">3.</strong> Deployment</a></li><li class="expanded "><a href="../api.html"><strong aria-hidden="true">4.</strong> API</a></li><li><ol class="section"><li class="expanded "><a href="../dev/custom_handler.html"><strong aria-hidden="true">4.1.</strong> Custom handler</a></li><li class="expanded "><a href="../dev/plugin_command.html"><strong aria-hidden="true">4.2.</strong> Plugin command</a></li><li class="expanded "><a href="../dev/logging.html"><strong aria-hidden="true">4.3.</strong> Logging</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">INetMock docs</h1>
+
+                        <div class="right-buttons">
+                            <a href="../print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#dns_mock" id="dns_mock"><code>dns_mock</code></a></h1>
+<h2><a class="header" href="#intro" id="intro">Intro</a></h2>
+<p>The <code>dns_mock</code> handler expects an array of rules how it should respond to dfferent DNS queries and a fallback strategy.
+Currently only queries for <strong>A</strong> records are supported.
+The rules are primarily meant to define some exceptions or well known DNS responses e.g. to return to right Google DNS IP but for everything else it will return dummy IPs.</p>
+<p>The rules for the <code>dns_mock</code> handler are equivalent to the <code>http_mock</code> rules.
+Every rule consists of a <code>pattern</code> that specifies a query name e.g. a single host, a wildcard domain, a wildcard top-level domain or even a <em>&quot;match all&quot;</em> rule is possible.
+These rules are evaluated in the same order they are defined in the <code>config.yaml</code>.</p>
+<p>The fallback strategy is taken into account whenever a query does not match a rule.</p>
+<p>Right now the following fallback strategies are available:</p>
+<ul>
+<li><em>random</em></li>
+<li><em>incremental</em></li>
+</ul>
+<p>Just like the handler is configured via the <code>options</code> object the fallback strategies are configured via an <code>args</code> object.</p>
+<h3><a class="header" href="#random-fallback" id="random-fallback"><em>random</em> fallback</a></h3>
+<p>The <em>random</em> fallback strategy is the easier one of the both.
+It doesn't take any argument and it just shuffles a random IP address for every request no matter if it was already asked for this IP or not.</p>
+<h3><a class="header" href="#incremental-fallback" id="incremental-fallback"><em>incremental</em> fallback</a></h3>
+<p>The <em>incremental</em> fallback is little bit more intelligent.
+It takes a <code>startIP</code> as an argument which defines from which IP address the strategy starts counting up to respond to DNS queries.
+Just like the <em>incremental</em> strategy it is <em>stateless</em> and does not store any already given response for later reuse (at least for now).</p>
+<h2><a class="header" href="#configuration" id="configuration">Configuration</a></h2>
+<h3><a class="header" href="#matching-an-explicit-host" id="matching-an-explicit-host">Matching an explicit host</a></h3>
+<p>The easiest possible pattern is to match a single host:</p>
+<pre><code class="language-yml">endpoints:
+  plainDns:
+    handler: dns_mock
+    listenAddress: 0.0.0.0
+    port: 53
+    options:
+      rules:
+        - pattern: &quot;github\\.com&quot;
+          response: 1.1.1.1
+</code></pre>
+<h3><a class="header" href="#matching-a-whole-domain" id="matching-a-whole-domain">Matching a whole domain</a></h3>
+<p>While matching a single host is nice2have it's not very helpful in most cases - except for some edge cases where it might be necesary to specifically return a certain IP address.
+But it's also possible to match a whole domain no matter what subdomain or sub-subdomain or whatever is requested like this:</p>
+<pre><code class="language-yml">endpoints:
+  plainDns:
+    handler: dns_mock
+    listenAddress: 0.0.0.0
+    port: 53
+    options:
+      rules:
+        - pattern: &quot;.*\\.google\\.com&quot;
+          response: 2.2.2.2
+</code></pre>
+<h3><a class="header" href="#matching-a-whole-tld" id="matching-a-whole-tld">Matching a whole TLD</a></h3>
+<p>In some cases it might also be interesting to distinguish between different requested TLDs.
+Therefore it might be interesting to define one IP address to resolve to for every TLD that should be distinguishable.</p>
+<pre><code class="language-yml">endpoints:
+  plainDns:
+    handler: dns_mock
+    listenAddress: 0.0.0.0
+    port: 53
+    options:
+      rules:
+        - pattern: &quot;.*\\.com&quot;
+          response: 2.2.2.2
+</code></pre>
+<h3><a class="header" href="#matching-any-query" id="matching-any-query">Matching any query</a></h3>
+<p>Last but not least it is obvously also possible to match any query.
+This is comparable to a <em>&quot;static&quot;</em> fallback strategy in cases where different IP addresses are not necessary but the network setup should be as easy as possible.</p>
+<pre><code class="language-yml">endpoints:
+  plainDns:
+    handler: dns_mock
+    listenAddress: 0.0.0.0
+    port: 53
+    options:
+      rules:
+        - pattern: &quot;.*&quot;
+          response: 10.0.10.1
+</code></pre>
+<h3><a class="header" href="#fallback-strategies" id="fallback-strategies">Fallback strategies</a></h3>
+<h4><a class="header" href="#random" id="random"><em>random</em></a></h4>
+<p>Like previously mentioned the <em>random</em> strategy is easy as it can be.
+It just takes a random unsigned integer of 32 bits, converts it to an IP address and returns this address as response.
+Therefore no further configuration is necessary for now.</p>
+<pre><code class="language-yml">endpoints:
+  plainDns:
+    handler: dns_mock
+    listenAddress: 0.0.0.0
+    port: 53
+    options:
+      rules: []
+      fallback:
+        strategy: random
+</code></pre>
+<h4><a class="header" href="#incremental" id="incremental"><em>incremental</em></a></h4>
+<p>Also like previously mentioned the <em>incremental</em> fallback strategy is fairly easy to setup.
+It just takes a <code>startIP</code> as argument which is used to count upwards.
+It does <strong>not</strong> check for an interval or something like this right now so a overflow might occur.</p>
+<pre><code class="language-yml">endpoints:
+  plainDns:
+    handler: dns_mock
+    listenAddress: 0.0.0.0
+    port: 53
+    options:
+      rules: []
+      fallback:
+        strategy: incremental
+        args:
+          startIP: 10.0.0.0
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../config/http_mock.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../config/tls_interceptor.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="../config/http_mock.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="../config/tls_interceptor.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+        
+        
+        <script type="text/javascript">
+            window.playpen_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>
